@@ -1,16 +1,16 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 app = Flask(__name__)
-CORS(app)  # Allow calls from React frontend
+CORS(app, origins=os.getenv("FRONTEND_URL"))
 
-@app.route('/api/hello')
+@app.route("/api/hello")
 def hello():
-    return jsonify(message="Hello from Flask Backend on Render!")
+    return jsonify(message="Hello from Flask!")
 
-@app.route('/')
-def home():
-    return jsonify(status="Backend Flask is running!")
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=10000)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=int(os.getenv("PORT", 5000)))

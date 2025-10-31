@@ -1,21 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 function App() {
-  const [msg, setMsg] = useState('Loading message from Flask...');
+  const [msg, setMsg] = useState("");
 
   useEffect(() => {
-    fetch('https://flask-backend.onrender.com/api/hello')
+    fetch(`${process.env.REACT_APP_API_URL}/api/hello`)
       .then(res => res.json())
-      .then(data => setMsg(data.message))
-      .catch(() => setMsg('Unable to reach backend.'));
+      .then(data => setMsg(data.message));
   }, []);
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <h1>React Frontend</h1>
-      <p>{msg}</p>
+    <div>
+      <h1>{msg || "Loading..."}</h1>
     </div>
   );
 }
 
 export default App;
+
